@@ -1,0 +1,14 @@
+numpy==1.16.0
+jupyter
+pycocotools
+
+
+
+
+opencv-python
+tqdm
+tensorboard
+tensorboardX
+pyyaml
+webcolors
+matplotlib

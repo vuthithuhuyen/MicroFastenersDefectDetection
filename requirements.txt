@@ -1,0 +1,9 @@
+opencv-python
+Pillow
+yolov5
+numpy
+matplotlib
+scipy
+pyqt5
+qimage2ndarray
+ultralytics
