@@ -15,7 +15,7 @@ currentImage = ""
 blurImage = False
 thres1, thres2 = 70, 33
 
-trained_svm = None
+
 
 standardImgSize = (28, 28)
 display_rescale = 50

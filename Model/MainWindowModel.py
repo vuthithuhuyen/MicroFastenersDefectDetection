@@ -5,7 +5,7 @@ from PyQt5.QtCore import QDir
 from PyQt5.QtWidgets import QMainWindow, QFileSystemModel
 from PyQt5.uic import loadUi
 
-from Controller.MainWindowController import ProcessingProductImage, TrainingInputData_click, PredictClick, \
+from Controller.MainWindowController import ProcessingProductImage, PredictClick, \
     LoadTrainedModel_click, Camera_Processing
 from Helper.Errors import show_error
 from Helper.FileHelper import sliderChangeValue, sliderResizeImage

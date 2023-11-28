@@ -1,7 +1,5 @@
 import os
 import time
-# from Model import GlobalVariables
-# from Model.GlobalVariables import display_rescale, train_class, thres1, thres2, trained_svm
 from pathlib import Path
 
 # from joblib import dump, load
@@ -132,41 +130,6 @@ def update_output_label(self: QMainWindow, status: bool):
         pass
 
 
-# huấn luyện dữ liệu dựa trên thư mục đã chọn
-def TrainingInputData_click(training_path, statusLabel: QLabel):
-    try:
-        if not (os.path.isdir(training_path)):
-            print(f'{training_path} is not exsits!')
-            return
-        # Duyệt thư mục, lấy danh sách các file ảnh để chuẩn bị huấn luyện
-        print('Start reading all files... Please wait...')
-        p = Path(training_path)
-        all_files = []
-        for i in p.rglob('*.jpg'):
-            msg = f'Reading file to queue list... {i.name}'
-            print(msg)
-            statusLabel.setText(msg)
-            image_class = i.name.split('_')[0]
-            if not (image_class in train_class):
-                continue
-            all_files.append((image_class, i.name, i.absolute(), time.ctime(i.stat().st_ctime)))
-            i.absolute()
-        columns = ["Image_Class", "File_Name", "Full_Path", "Created"]
-        # Tạo data frame chứa danh sách các file để huấn luyện.
-        df = pd.DataFrame.from_records(all_files, columns=columns)
-        train_data, train_label = ListFileInFrame2TrainData(df)
-        executeTime = MyRunningTime()
-        print('Start training SVM...')
-        statusLabel.setText('Start training SVM...')
-        # Train SVM model
-        # GlobalVariables.trained_svm = SVMTrainer(train_data, train_label)
-        print(GlobalVariables.trained_svm)
-        statusLabel.setText('Trained SVM model')
-        showDialog("Information", "Finish training SVM model.")
-        executeTime.CalculateExecutedTime()
-    except Exception as e:
-        print(e)
-
 
 # Đọc dữ liệu file từ danh sách trong data frame -> Chuyển vào train_data, train_label
 def ListFileInFrame2TrainData(df: pd):
@@ -200,41 +163,4 @@ def ListFileInFrame2TrainData(df: pd):
     return train_data, train_label
 
 
-# Bấm nút Dự đoán <Predict>
-def PredictClick(filename, lblResult: QLabel):
-    try:
-        if not IsImage(filename):
-            print(f'{filename} is not an image file')
-            showErrDialog("Error", "Please select an image")
-            return
 
-        if GlobalVariables.trained_svm is None:
-            print('No trained SVM model')
-            showErrDialog("Error", "No trained SVM model")
-            return
-        predicted_label = SVMPrediction(filename)
-        print(f'predicted: {predicted_label[0]}')
-        lblResult.setText(predicted_label[0])
-    except Exception as e:
-        print(e)
-
-
-# Prediction
-def SVMPrediction(filename):
-    try:
-        img_array = RawImageToArray(filename, GlobalVariables.thres1, GlobalVariables.thres2)
-        input_test = img_array.reshape(-1, len(img_array))
-        predicted_label = GlobalVariables.trained_svm.predict(input_test)
-        return predicted_label
-    except Exception as e:
-        print(e)
-        return "unknow"
-
-
-# Load trained model
-def LoadTrainedModel_click(self: QMainWindow):
-    try:
-        pass
-
-    except Exception as e:
-        print(e)

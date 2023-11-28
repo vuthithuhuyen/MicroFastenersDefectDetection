@@ -111,6 +111,7 @@ def efficienDet_predict(img_list):
             head, tail = os.path.split(img_path)
             filename = os.path.join("Results", tail)
             plt.savefig(filename)
+
             plt.show()
 
 

@@ -97,7 +97,7 @@ def SVT_classification(model, _file_path):
 
 if __name__ == '__main__':
 
-    _filename = 'vietnam-street-crossing.jpg'
+    _filename = '0203_4_jpg.rf.2a3d5e9043aad797ee8a65601e79a6cb.jpg'
     _file_path = f'Images-Sample/{_filename}'
 
     try:
